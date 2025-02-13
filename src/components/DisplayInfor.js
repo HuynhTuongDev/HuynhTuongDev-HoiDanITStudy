@@ -3,12 +3,20 @@ import UserInfor from "./UserInfor";
 class DisplayInfor extends React.Component {
     render() {
         //destrcucturing array/pbject 
-        const { age, name } = this.props;
+        const { listUsers } = this.props;
+        console.log(listUsers);
         //props => viet tat cua properties
         return (
             <div>
-                <div> My name is {this.props.name}  </div>
-                <div>My age's {this.props.age}</div>
+                {listUsers.map((user, index) => {
+                    return (
+                        <div key={user.id}>
+                            <div> My name is {user.name}</div>
+                            <div>My age's {user.age}</div>
+                            <hr></hr>
+                        </div>
+                    )
+                })}
             </div>
         )
     }
