@@ -33,6 +33,7 @@ class MyComponent extends React.Component {
         //DRY: don't repeat yourseft
         return (
             <>
+                <br />
                 <div className="a">
                     <AddUserInfor
                         handleAddNewUser={this.handleAddNewUser}
