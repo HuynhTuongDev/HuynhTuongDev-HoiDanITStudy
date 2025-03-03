@@ -2,7 +2,7 @@
 //function component
 
 import React from "react";
-import UserInfor from "./UserInfor"
+import AddUserInfor from "./AddUserInfor"
 import DisplayInfor from "./DisplayInfor";
 class MyComponent extends React.Component {
 
@@ -16,16 +16,29 @@ class MyComponent extends React.Component {
         ]
     }
 
+    handleAddNewUser = (userObj) => {
+        // let listUserNew = this.state.listUser;
+        // listUserNew.push(userObj);
+        // console.log('>>> check user new ', listUserNew)
+        // this.setState({
+        //     listUser: listUserNew
+        // })
+        this.setState({
+            listUser: [...this.state.listUser, userObj]
+        })
+    }
+
     //JSX
     render() {
         //DRY: don't repeat yourseft
         return (
             <div>
-                <UserInfor />
+                <AddUserInfor
+                    handleAddNewUser={this.handleAddNewUser}
+                />
                 <br></br>
                 <DisplayInfor
                     listUsers={this.state.listUser}
-                    user={this.state.listUser}
                 />
             </div>
         );
