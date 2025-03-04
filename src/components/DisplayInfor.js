@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserInfor from "./AddUserInfor";
 import './DisplayInfor.scss';
 // class DisplayInfor extends React.Component {
@@ -38,14 +38,19 @@ import './DisplayInfor.scss';
 // }
 const DisplayInfor = (props) => {
     const { listUsers } = props;
-    console.log(">>> call me render")
-    //destrcucturing array/pbject 
-    // console.log(listUsers);
-    // //props => viet tat cua properties
-    // console.table(listUsers);
+
+    const [isShowHideListUser, setShowHideListUsers] = useState(true);
+    const handleShowHideListUser = () => {
+        setShowHideListUsers(!isShowHideListUser);
+    }
     return (
         <div className="display-infor-container">
-            {true &&
+            <div>
+                <span onClick={() => handleShowHideListUser()}>
+                    {isShowHideListUser === true ? 'Hide List Users' : 'Show List Users'}
+                </span>
+            </div>
+            {isShowHideListUser &&
                 <div>
                     {listUsers.map((user, index) => {
                         console.log(">>> check map user", user)
