@@ -1,41 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInfor from "./AddUserInfor";
 import './DisplayInfor.scss';
-// class DisplayInfor extends React.Component {
-
-//     render() {
-//         console.log(">>> call me render")
-//         //destrcucturing array/pbject 
-//         const { listUsers } = this.props;
-//         // console.log(listUsers);
-//         // //props => viet tat cua properties
-//         // console.table(listUsers);
-//         return (
-//             <div className="display-infor-container">
-//                 {true &&
-//                     <div>
-//                         {listUsers.map((user, index) => {
-//                             console.log(">>> check map user", user)
-
-//                             return (
-//                                 <>
-//                                     <div key={user.id} className={+user.age > 20 ? "green" : "red"}>
-//                                         <div> My name is {user.name}</div>
-//                                         <div>My age's {user.age}</div>
-//                                     </div>
-//                                     <div>
-//                                         <button onClick={() => { this.props.handleDeleteUser(user.id) }}>Delete</button>
-//                                     </div>
-//                                 </>
-//                             )
-//                         })}
-//                     </div>
-//                 }
-
-//             </div>
-//         )
-//     }
-// }
+//stateless and stateful
 const DisplayInfor = (props) => {
     const { listUsers } = props;
 
@@ -43,6 +9,17 @@ const DisplayInfor = (props) => {
     const handleShowHideListUser = () => {
         setShowHideListUsers(!isShowHideListUser);
     }
+    console.log(">> call me render ");
+
+    useEffect(
+        () => {
+            if (listUsers.length === 0) {
+                alert("You delete all Users")
+            }
+            console.log(">> call me useEffect ");
+        }, [listUsers]
+    )
+
     return (
         <div className="display-infor-container">
             <div>
@@ -53,8 +30,6 @@ const DisplayInfor = (props) => {
             {isShowHideListUser &&
                 <div>
                     {listUsers.map((user, index) => {
-                        console.log(">>> check map user", user)
-
                         return (
                             <>
                                 <div key={user.id} className={+user.age > 20 ? "green" : "red"}>
