@@ -13,6 +13,7 @@ import { DiReact } from "react-icons/di";
 import { MdDashboard } from "react-icons/md"
 import './SideBar.scss'
 import 'react-pro-sidebar/dist/css/styles.css';
+import { Link } from 'react-router-dom';
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
     return (
@@ -47,6 +48,7 @@ const SideBar = (props) => {
                         icon={<MdDashboard />}
                     >
                         Dashboard
+                        <Link to="/admins"></Link>
                     </MenuItem>
 
                 </Menu>
@@ -55,7 +57,10 @@ const SideBar = (props) => {
                         icon={<FaGem />}
                         title="Features"
                     >
-                        <MenuItem>Management User</MenuItem>
+                        <MenuItem >
+                            Management User
+                            <Link to="/admins/manage-users"></Link>
+                        </MenuItem>
                         <MenuItem>Management Quizz</MenuItem>
                         <MenuItem>Management Questions</MenuItem>
                     </SubMenu>
