@@ -7,8 +7,11 @@ import {
     SidebarFooter,
     SidebarContent,
 } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaList, FaGithub, FaRegLaughWink, FaHeart } from 'react-icons/fa';
+import { FaTachometerAlt, FaGem, FaList, FaGithub } from 'react-icons/fa';
 import sidebarBg from '../../assets/bg2.jpg';
+import { DiReact } from "react-icons/di";
+import { MdDashboard } from "react-icons/md"
+import './SideBar.scss'
 import 'react-pro-sidebar/dist/css/styles.css';
 const SideBar = (props) => {
     const { image, collapsed, toggled, handleToggleSidebar } = props;
@@ -33,28 +36,28 @@ const SideBar = (props) => {
                         whiteSpace: 'nowrap',
                     }}
                 >
-                    Hoi dan IT
+                    <DiReact size={'3em'} color={"#00bfff"} />
+                    <span> Hoi dan IT</span>
                 </div>
             </SidebarHeader>
 
             <SidebarContent>
                 <Menu iconShape="circle">
                     <MenuItem
-                        icon={<FaTachometerAlt />}
-                        suffix={<span className="badge red">New</span>}
+                        icon={<MdDashboard />}
                     >
                         Dashboard
                     </MenuItem>
-                    <MenuItem icon={<FaGem />}>Component</MenuItem>
+
                 </Menu>
                 <Menu iconShape="circle">
                     <SubMenu
-                        suffix={<span className="badge yellow">3</span>}
-                        icon={<FaRegLaughWink />}
+                        icon={<FaGem />}
+                        title="Features"
                     >
-                        <MenuItem> 1</MenuItem>
-                        <MenuItem> 2</MenuItem>
-                        <MenuItem> 3</MenuItem>
+                        <MenuItem>Management User</MenuItem>
+                        <MenuItem>Management Quizz</MenuItem>
+                        <MenuItem>Management Questions</MenuItem>
                     </SubMenu>
 
                 </Menu>
@@ -64,7 +67,7 @@ const SideBar = (props) => {
                 <div
                     className="sidebar-btn-wrapper"
                     style={{
-                        padding: '20px 24px',
+                        padding: '16px',
                     }}
                 >
                     <a
@@ -73,9 +76,8 @@ const SideBar = (props) => {
                         className="sidebar-btn"
                         rel="noopener noreferrer"
                     >
-                        <FaGithub />
                         <span style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>
-                            View Soure
+                            &#169; Hỏi dân IT Udemy
                         </span>
                     </a>
                 </div>
