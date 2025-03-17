@@ -13,6 +13,53 @@
         }
         .admin-main{
             // border: 1px solid ;
+            //paginate
+            .user-paginate {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+              }
+              
+              .pagination {
+                display: flex;
+                list-style: none;
+                padding: 8px;
+                border-radius: 8px;
+                background: #fff;
+                box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+              }
+              
+              .pagination .page-item {
+                margin: 0 4px;
+                transition: transform 0.2s ease-in-out;
+              }
+              
+              .pagination .page-link {
+                color: #007bff;
+                padding: 8px 12px;
+                border-radius: 6px;
+                text-decoration: none;
+                font-weight: 500;
+                transition: background 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.2s ease-in-out;
+              }
+              
+              .pagination .page-item:hover {
+                transform: translateY(-2px);
+              }
+              
+              .pagination .page-item:hover .page-link {
+                background: #007bff;
+                color: white;
+              }
+              
+              .pagination .active .page-link {
+                background: #0056b3;
+                color: white;
+                font-weight: bold;
+                box-shadow: 0px 4px 10px rgba(0, 86, 179, 0.3);
+              }
+              
+              
         }
     }
 }
