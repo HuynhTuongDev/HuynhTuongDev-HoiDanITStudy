@@ -55,7 +55,7 @@ const ModalUpdateUser = (props) => {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             );
     };
-    const handleSubmitCreateUser = async () => {
+    const handleSubmitUpdateUser = async () => {
         //validate
         const isValidEmail = validateEmail(email);
         if (!isValidEmail) {
@@ -67,7 +67,9 @@ const ModalUpdateUser = (props) => {
         if (data && data.EC == 0) {
             toast.success(data.EM);
             handleClose();
-            await props.fetchListUser();
+            // props.setCurrentPage(1);
+            await props.fetchListUserWithPaginate(props.currentPage);
+            // await props.fetchListUser();
         }
         if (data && data.EC !== 0) {
             toast.error(data.EM);
@@ -126,7 +128,7 @@ const ModalUpdateUser = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitCreateUser}>
+                    <Button variant="primary" onClick={handleSubmitUpdateUser}>
                         Save
                     </Button>
                 </Modal.Footer>
