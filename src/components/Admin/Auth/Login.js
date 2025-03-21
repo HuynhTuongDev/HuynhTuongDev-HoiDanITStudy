@@ -1,16 +1,31 @@
 import { useState } from 'react';
 import './Login.scss';
+import { useNavigate } from 'react-router-dom';
+import { postLogin } from '../../../services/apiService';
+import { toast } from 'react-toastify';
+
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleLogin = () => {
-
+    const navigate = useNavigate();
+    const handleLogin = async () => {
+        //validate
+        //submit api 
+        let data = await postLogin(email, password);
+        if (data && +data.EC == 0) {
+            toast.success(data.EM);
+            navigate('/');
+        }
+        if (data && +data.EC !== 0) {
+            toast.error(data.EM);
+        }
     }
     return (
         <div>
             <div className="login-container">
                 <div className="header">
-                    Don't have an account yet?
+                    <span> Don't have an account yet?</span>
+                    <button>Sign up</button>
                 </div>
                 <div className="title col-4 mx-auto">
                     Hoi dan IT
@@ -24,7 +39,7 @@ const Login = (props) => {
                         <input type={"email"}
                             className="form-control"
                             value={email}
-                            onChange={() => setEmail(event.target.value)}
+                            onChange={(event) => setEmail(event.target.value)}
                         >
 
                         </input>
@@ -34,12 +49,12 @@ const Login = (props) => {
                         <input type={"password"}
                             className="form-control"
                             value={password}
-                            onChange={() => setPassword(event.target.value)}
+                            onChange={(event) => setPassword(event.target.value)}
                         >
 
                         </input>
                     </div>
-                    <span className='forgot-password'>Forgot password</span>
+                    <span className='forgot-password'>Forgot password ?</span>
                     <div>
                         <button
                             className='btn-submit'
@@ -47,6 +62,11 @@ const Login = (props) => {
                         >
                             Login to HoiDanIT
                         </button>
+                    </div>
+                    <div className='back text-center'>
+                        <span onClick={() => navigate('/')}>
+                            &#60;&#60; Go to Homepage
+                        </span>
                     </div>
                 </div>
             </div>
