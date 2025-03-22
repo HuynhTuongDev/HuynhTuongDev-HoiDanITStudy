@@ -3,13 +3,23 @@ import './Login.scss';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../../../services/apiService';
 import { toast } from 'react-toastify';
-
+import { FiEye, FiEyeOff } from "react-icons/fi";
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const handleLogin = async () => {
         //validate
+        const isValidEmail = validateEmail(email);
+        if (!isValidEmail) {
+            toast.error('Invalid email');
+            return;
+        }
+        if (!password) {
+            toast.error('Invalid password');
+            return;
+        }
         //submit api 
         let data = await postLogin(email, password);
         if (data && +data.EC == 0) {
@@ -20,12 +30,22 @@ const Login = (props) => {
             toast.error(data.EM);
         }
     }
+    const handleRegister = () => {
+        navigate('/register')
+    }
+    const validateEmail = (email) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
     return (
         <div>
             <div className="login-container">
                 <div className="header">
                     <span> Don't have an account yet?</span>
-                    <button>Sign up</button>
+                    <button onClick={() => handleRegister()}>Sign up</button>
                 </div>
                 <div className="title col-4 mx-auto">
                     Hoi dan IT
@@ -46,13 +66,20 @@ const Login = (props) => {
                     </div>
                     <div className="form-group ">
                         <label>Password</label>
-                        <input type={"password"}
-                            className="form-control"
-                            value={password}
-                            onChange={(event) => setPassword(event.target.value)}
-                        >
-
-                        </input>
+                        <div className="password-wrapper">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                className="form-control"
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                            />
+                            <span
+                                className="toggle-password"
+                                onClick={() => setShowPassword(!showPassword)}
+                            >
+                                {showPassword ? < FiEye /> : < FiEyeOff />}
+                            </span>
+                        </div>
                     </div>
                     <span className='forgot-password'>Forgot password ?</span>
                     <div>

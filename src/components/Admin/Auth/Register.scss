@@ -1,4 +1,4 @@
-.login-container{
+.register-container{
     padding: 20px;
     .header{
         height: 45px;
@@ -41,10 +41,6 @@
             background: black;
         }
         .back{
-            cursor: pointer;
-        }
-        .forgot-password{
-            text-decoration: underline;
             cursor: pointer;
         }
     }
