@@ -27,7 +27,7 @@ const Register = (props) => {
         let data = await postRegister(email, password, username);
         if (data && +data.EC === 0) {
             toast.success(data.EM);
-            navigate('/');
+            navigate('/login');
         } else {
             toast.error(data.EM);
         }
