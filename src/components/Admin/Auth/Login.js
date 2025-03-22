@@ -6,12 +6,16 @@ import { toast } from 'react-toastify';
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch } from 'react-redux';
 import { doLogin } from '../../../redux/action/userAction';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+
+
     const handleLogin = async () => {
         //validate
         const isValidEmail = validateEmail(email);
@@ -23,15 +27,18 @@ const Login = (props) => {
             toast.error('Invalid password');
             return;
         }
+        setIsLoading(true);
         //submit api 
         let data = await postLogin(email, password);
         if (data && +data.EC == 0) {
             dispatch(doLogin(data))
             toast.success(data.EM);
+            setIsLoading(false);
             navigate('/');
         }
         if (data && +data.EC !== 0) {
             toast.error(data.EM);
+            setIsLoading(false);
         }
     }
     const handleRegister = () => {
@@ -90,8 +97,10 @@ const Login = (props) => {
                         <button
                             className='btn-submit'
                             onClick={() => handleLogin()}
+                            disabled={isLoading}
                         >
-                            Login to HoiDanIT
+                            {isLoading === true && <AiOutlineLoading3Quarters className='loader-icon' />}
+                            <span> Login to HoiDanIT</span>
                         </button>
                     </div>
                     <div className='back text-center'>
