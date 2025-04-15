@@ -41,7 +41,6 @@ const DetailQuiz = () => {
             setDataQuiz(data);
         }
     }
-    console.log(">>>check data quiz: ", dataQuiz)
     const handelPrev = () => {
         if (index - 1 < 0) return;
         setIndex(index - 1)
@@ -54,20 +53,59 @@ const DetailQuiz = () => {
         let dataQuizClone = _.cloneDeep(dataQuiz);
         let question = dataQuizClone.find(item => +item.questionId === +questionId)
         if (question && question.answers) {
-            let b = question.answers.map(item => {
+            question.answers = question.answers.map(item => {
                 if (item.id === +answerId) {
                     item.isSelected = !item.isSelected;
                 }
                 return item
             })
-            question.answers = b
             // console.log(b);
-
         }
         let index = dataQuizClone.findIndex(item => +item.questionId === +questionId)
         if (index > -1) {
             dataQuizClone[index] = question;
             setDataQuiz(dataQuizClone);
+        }
+    }
+    const handelFinishQuiz = () => {
+        console.log(">>> check data before submit: ", dataQuiz)
+        // {
+        //     "quizId": 1,
+        //     "answers": [
+        //         { 
+        //             "questionId": 1,
+        //             "userAnswerId": [3]
+        //         },
+        //         { 
+        //             "questionId": 2,
+        //             "userAnswerId": [6]
+        //         }
+        //     ]
+        // }
+        let payload = {
+            quizId: +quizId,
+            answers: []
+        };
+        let answers = [];
+
+        if (dataQuiz.length > 0) {
+            dataQuiz.forEach(question => {
+                let questionId = question.questionId;
+                let userAnswerId = [];
+
+                //to do
+                question.answers.forEach(answer => {
+                    if (answer.isSelected) {
+                        userAnswerId.push(answer.id)
+                    }
+                })
+                answers.push({
+                    questionId: +questionId,
+                    userAnswerId: userAnswerId
+                })
+            })
+            payload.answers = answers;
+            console.log("final payload", payload);
         }
     }
     return (
@@ -90,7 +128,7 @@ const DetailQuiz = () => {
                 <div className="footer">
                     <button className="btn btn-secondary" onClick={() => handelPrev()}>Prev</button>
                     <button className="btn btn-primary" onClick={() => handelNext()}>Next</button>
-                    <button className="btn btn-warning" onClick={() => handelNext()}>Finish</button>
+                    <button className="btn btn-warning" onClick={() => handelFinishQuiz()}>Finish</button>
                 </div>
             </div>
             <div className="right-content">
